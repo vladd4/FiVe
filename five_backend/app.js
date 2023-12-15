@@ -63,5 +63,32 @@ app.get("/filters/state", async (req, res) => {
   res.json(states);
 });
 
+//user
+app.get("/user/:id", async (req, res) => {
+  const user = await UserController.getUserById(req.params.id);
+  res.json(user);
+});
+app.post("/user/edit/:id", async (req, res) => {
+  const updatedUser = await UserController.updateUserById(
+    req.body,
+    req.params.id
+  );
+  res.json(updatedUser);
+});
+
+//saved
+app.get("/saved/:id", async (req, res) => {
+  const saved = await SavedController.getSavedByUserId(req.params.id);
+  res.json(saved);
+});
+app.post("/saved", async (req, res) => {
+  const added = await SavedController.addSaved(req.body);
+  res.status(201).json(added);
+});
+app.delete("/saved/:id", async (req, res) => {
+  const deleted = await SavedController.deleteSavedbyId(req.params.id);
+  res.json(deleted);
+});
+
 //start server
 start();

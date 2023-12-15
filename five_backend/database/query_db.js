@@ -65,3 +65,16 @@ export const getAllFuelQuery = `SELECT * FROM fuels;`;
 export const getAllGearQuery = `SELECT * FROM gearboxes;`;
 export const getAllTransmissionQuery = `SELECT * FROM transmission;`;
 export const getAllStateQuery = `SELECT * FROM state;`;
+
+export const getUser = `SELECT * FROM clients WHERE id = `;
+
+export const getSavedForUser = `SELECT s.id, s.client_id, brands.brand, models.model, s.max_price, s.min_price, s.min_year, s.max_year, g.gearbox, t.transmission, f.fuel, state.state, s.telegram FROM saved_searches s
+LEFT JOIN brands ON brands.id = s.brand_id
+LEFT JOIN models ON models.id = s.model_id
+LEFT JOIN gearboxes g ON s.gearbox_id = g.id
+        LEFT JOIN transmission t ON s.transmission_id = t.id
+        LEFT JOIN fuels f ON s.fuel_id = f.id
+        LEFT JOIN state state ON s.state_id = state.id
+        WHERE s.client_id = `;
+
+export const deleteSavedQuery = `DELETE FROM saved_searches WHERE id = `;
